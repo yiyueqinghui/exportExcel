@@ -15,7 +15,7 @@
       },
       methods:{
         init(){
-          this.msg = this.$Store.data.test;
+          this.msg = this.$Store.test;
           let data = {
             id:1
           }
