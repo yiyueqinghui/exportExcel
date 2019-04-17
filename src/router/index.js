@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/home'
+import ExportExcel from '@/page/exportExcel'
 
 Vue.use(Router)
 
@@ -8,8 +8,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component:Home
+      component:ExportExcel.home,
+      redirect:'/csv',
+      children:[
+        {
+          path:'/csv',
+          component:ExportExcel.csv
+        },
+        {
+          path:'/excel',
+          component:ExportExcel.excel
+        }
+      ]
     }
   ]
 })
