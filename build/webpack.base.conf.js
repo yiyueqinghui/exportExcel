@@ -3,10 +3,14 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
+const ModifyXlsx = require('./modifyXlsx.js');
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
+//add  复制文件到指定地方
+let fromPath = path.resolve(__dirname,'../src/vendor/cpexcel.js'),
+    toPath = path.resolve(__dirname,'../node_modules/xlsx-style/dist/cpexcel.js');
+ModifyXlsx.copyIt(fromPath,toPath);
 
 
 

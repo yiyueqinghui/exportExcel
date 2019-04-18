@@ -8,6 +8,7 @@
           <router-link to="/excel">导出excel文件</router-link>
         </li>
       </ul>
+
       <el-table :data="tableData" style="width: 80%;margin: 20px auto;" border fit highlight-current-row >
         <el-table-column  label="姓名" align="center">
           <template slot-scope="scope">{{scope.row.name}}</template>

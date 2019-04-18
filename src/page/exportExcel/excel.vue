@@ -6,7 +6,7 @@
         npm install -S xlsx-style
         npm install -S xlsx
         npm install -D script-loader
-        <b style="color:red;">注意: xlsx-style插件中,dist/cpexcel.js有问题,需要用vendor/cpexcel.js替换下 </b>
+        <b style="color:red;">注意: xlsx-style插件中,dist/cpexcel.js有问题,需要用vendor/cpexcel.js替换下(build下新增Xlsx.js，在webpack.base.conf.js中执行，使用node来实现替换) </b>
       </dd>
       <dd>2,在项目中创建一个文件夹（比如vendor，一般是在src目录下创建）
 
