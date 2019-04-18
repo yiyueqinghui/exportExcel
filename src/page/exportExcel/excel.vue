@@ -4,6 +4,7 @@
       <dd>1,安装三个依赖包
         npm install -S file-saver
         npm install -S xlsx-style
+        npm install -S xlsx
         npm install -D script-loader
         <b style="color:red;">注意: xlsx-style插件中,dist/cpexcel.js有问题,需要用vendor/cpexcel.js替换下 </b>
       </dd>
