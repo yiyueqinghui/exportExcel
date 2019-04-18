@@ -1,19 +1,5 @@
 <template>
    <div id="csv">
-       <el-table :data="tableData" style="width: 80%;margin: 20px auto;" border fit highlight-current-row >
-         <el-table-column  label="姓名" align="center">
-           <template slot-scope="scope">{{scope.row.name}}</template>
-         </el-table-column>
-         <el-table-column  label="语文" align="center">
-           <template slot-scope="scope">{{scope.row.chinese}}</template>
-         </el-table-column>
-         <el-table-column  label="数学" align="center">
-           <template slot-scope="scope">{{scope.row.math}}</template>
-         </el-table-column>
-         <el-table-column  label="英语" align="center">
-           <template slot-scope="scope">{{scope.row.english}}</template>
-         </el-table-column>
-       </el-table>
        <el-row style="width: 80%;text-align: left;margin: 0 auto;">
           <h4>csv文件的转换规则</h4>
           <dl>
@@ -37,32 +23,7 @@
     name: "csv",
     data(){
       return {
-        tableData:[
-          {
-            name:'"cj',
-            chinese:99,
-            math:97,
-            english:90
-          },
-          {
-            name:"l\r\nq",
-            chinese:99,
-            math:97,
-            english:90
-          },
-          {
-            name:'l,c',
-            chinese:99,
-            math:97,
-            english:90
-          },
-          {
-            name:'xx',
-            chinese:99,
-            math:97,
-            english:90
-          },
-        ]
+
       }
     },
     methods:{
@@ -120,6 +81,9 @@
           return name;
         }
       }
+    },
+    mounted(){
+      this.tableData = this.$Store.tableData;
     }
 
 
