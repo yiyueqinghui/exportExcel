@@ -1,6 +1,40 @@
 require('script-loader!file-saver');
 require('script-loader!@/vendor/Blob');
-require('script-loader!xlsx/dist/xlsx.core.min');
+// require('script-loader!xlsx/dist/xlsx.core.min');
+import XLSX from 'xlsx-style'
+
+
+let tabCellStyle = {
+  default:{
+    alignment:{
+      vertical:"center",
+      horizontal:"center"
+    },
+    border: {
+      top: {style: "thin", color: {auto: 1}},
+      right: {style: "thin", color: {auto: 1}},
+      bottom: {style: "thin", color: {auto: 1}},
+      left: {style: "thin", color: {auto: 1}}
+    }
+  },
+  header:{
+    fill:{
+      patternType:"solid",
+      fgColor: {rgb: "FFF5F7FA"},
+      bgColor: {rgb: "FFFFFFFF"}
+    },
+    alignment:{
+      vertical:"center",
+      horizontal:"center"
+    },
+    border: {
+      top: {style: "thin", color: {auto: 1}},
+      right: {style: "thin", color: {auto: 1}},
+      bottom: {style: "thin", color: {auto: 1}},
+      left: {style: "thin", color: {auto: 1}}
+    }
+  }
+}
 function generateArray(table) {
   var out = [];
   var rows = table.querySelectorAll('tr');
@@ -70,6 +104,10 @@ function sheet_from_array_of_arrays(data, opts) {
       }
       else cell.t = 's';
 
+      //添加单元格样式
+      let cellStyle = R === 0 ? tabCellStyle.header : tabCellStyle.default;
+      cell.s = cellStyle;
+
       ws[cell_ref] = cell;
     }
   }
@@ -88,6 +126,10 @@ function s2ab(s) {
   var view = new Uint8Array(buf);
   for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
   return buf;
+}
+
+function formatJson(jsonData) {
+  console.log(jsonData)
 }
 
 export function export_table_to_excel(id) {
@@ -116,25 +158,24 @@ export function export_table_to_excel(id) {
   saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), "test.xlsx")
 }
 
-function formatJson(jsonData) {
-  console.log(jsonData)
-}
 export function export_json_to_excel(th, jsonData, defaultTitle) {
 
   /* original data */
 
   var data = jsonData;
-  data.unshift(th);
+  data.unshift(th);      //添加表头到jsonData
   var ws_name = "SheetJS";
 
-  var wb = new Workbook(), ws = sheet_from_array_of_arrays(data);
+  //第一步,创建workbooks;
+  var wb = new Workbook(),
+      ws = sheet_from_array_of_arrays(data);
 
 
-  /* add worksheet to workbook */
+  /*第二步,添加单元格到workbook */
   wb.SheetNames.push(ws_name);
   wb.Sheets[ws_name] = ws;
 
-  var wbout = XLSX.write(wb, {bookType: 'xlsx', bookSST: false, type: 'binary'});
+  var wbout = XLSX.write(wb, {bookType: 'xlsx', bookSST: false, type: 'binary',cellStyles: true});
   var title = defaultTitle || '列表'
   saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), title + ".xlsx")
 }
